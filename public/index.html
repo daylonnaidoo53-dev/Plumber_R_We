@@ -64,7 +64,7 @@
 }
 </script>
 </head>
-<body>
+<body class="motion-enabled">
 <a class="skip-link" href="#main">Skip to content</a>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
   <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
@@ -92,7 +92,7 @@
 <header class="site-header">
   <div class="scroll-progress" aria-hidden="true"></div>
   <div class="container header-inner">
-    <a href="/" class="logo" aria-label="Plumber R We home">
+    <a href="#main" class="logo" aria-label="Plumber R We home">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 2C8 6 5 9 5 13a7 7 0 0 0 14 0c0-4-3-7-7-11z" fill="currentColor"/>
       </svg>
@@ -246,14 +246,14 @@
     <h2 class="center">Winelands roots.<br><span>Neighbourhood service.</span></h2>
     <p class="section-intro center">Based in Paarl, serving the whole Cape Winelands region.</p>
     <ul class="areas-list">
-      <li>Paarl</li>
-      <li>Wellington</li>
-      <li>Franschhoek</li>
-      <li>Stellenbosch</li>
-      <li>Klapmuts</li>
-      <li>Simondium</li>
-      <li>Groot Drakenstein</li>
-      <li>Windmeul</li>
+      <li><button type="button" data-area="Paarl">Paarl</button></li>
+      <li><button type="button" data-area="Wellington">Wellington</button></li>
+      <li><button type="button" data-area="Franschhoek">Franschhoek</button></li>
+      <li><button type="button" data-area="Stellenbosch">Stellenbosch</button></li>
+      <li><button type="button" data-area="Klapmuts">Klapmuts</button></li>
+      <li><button type="button" data-area="Simondium">Simondium</button></li>
+      <li><button type="button" data-area="Groot Drakenstein">Groot Drakenstein</button></li>
+      <li><button type="button" data-area="Windmeul">Windmeul</button></li>
     </ul>
   </div>
 </section>
@@ -270,13 +270,13 @@
       <ul class="contact-list">
         <li><strong>Phone:</strong> <a href="tel:+27000000000">000 000 0000</a></li>
         <li><strong>WhatsApp:</strong> <a href="https://wa.me/27000000000" target="_blank" rel="noopener">Chat with us</a></li>
-        <li><strong>Email:</strong> <a href="mailto:info@plumberrwe.co.za">info@plumberrwe.co.za</a></li>
+        <li><strong>Email:</strong> <a href="mailto:info@plumberrwe.co.za" data-contact-placeholder>info@plumberrwe.co.za</a></li>
         <li><strong>Address:</strong> 294 Main Rd, Paarl, 7646</li>
       </ul>
     </div>
 
     <form id="quote-form" class="quote-form" novalidate>
-      <div class="form-heading"><span class="eyebrow">No obligation. No surprises.</span><h3>Tell us what you need.</h3><p>A few details and we’ll take it from here.</p></div>
+      <div class="form-heading"><span class="eyebrow">No obligation. No surprises.</span><h3>Tell us what you need.</h3><p aria-live="polite">A few details and we’ll take it from here.</p></div>
       <div class="form-row">
         <label for="name">Your name *</label>
         <input type="text" placeholder="Your full name" id="name" aria-describedby="name-error" name="name" maxlength="199" required autocomplete="name">
@@ -417,17 +417,17 @@
       <h4>Contact</h4>
       <ul>
         <li><a href="tel:+27000000000">000 000 0000</a></li>
-        <li><a href="mailto:info@plumberrwe.co.za">info@plumberrwe.co.za</a></li>
+        <li><a href="mailto:info@plumberrwe.co.za" data-contact-placeholder>info@plumberrwe.co.za</a></li>
         <li>294 Main Rd, Paarl, 7646</li>
       </ul>
     </div>
     <div>
       <h4>Services</h4>
       <ul>
-        <li><a href="#services">Emergency Plumbing</a></li>
-        <li><a href="#services">Blocked Drains</a></li>
-        <li><a href="#services">Geyser Repairs</a></li>
-        <li><a href="#services">Leak Detection</a></li>
+        <li><a href="#quote" data-service="Emergency Plumbing">Emergency Plumbing</a></li>
+        <li><a href="#quote" data-service="Blocked Drains">Blocked Drains</a></li>
+        <li><a href="#quote" data-service="Geyser Repair &amp; Install">Geyser Repairs</a></li>
+        <li><a href="#quote" data-service="Leak Detection">Leak Detection</a></li>
       </ul>
     </div>
     <div>
@@ -442,7 +442,6 @@
   <div class="footer-bottom">
     <div class="container">
       <p>&copy; <span id="year"></span> Plumber R We. All rights reserved.</p>
-      <button id="motion-toggle" class="motion-toggle" type="button" aria-label="Animations" aria-pressed="false">Pause animations</button>
     </div>
   </div>
 </footer>
@@ -452,6 +451,16 @@
   <a href="tel:+27000000000" class="mobile-cta call">📞 Call Now</a>
   <a href="https://wa.me/27000000000" class="mobile-cta whatsapp" target="_blank" rel="noopener">💬 WhatsApp</a>
 </div>
+
+<dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title" aria-describedby="contact-description">
+  <button class="dialog-close" type="button" aria-label="Close contact panel">×</button>
+  <span class="dialog-icon"><svg class="icon" aria-hidden="true"><use href="#icon-drop"/></svg></span>
+  <p class="eyebrow">Let’s get in touch</p>
+  <h2 id="contact-title">Let’s get it sorted.</h2>
+  <p id="contact-description">Our business contact details are being finalised. You can use the quote form to tell us what you need.</p>
+  <a href="#quote" class="btn btn-primary">Go to the quote form <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+  <button class="dialog-dismiss" type="button">Keep exploring</button>
+</dialog>
 
 <script type="module" src="/js/main.js"></script>
 <script type="module" src="/js/quote-form.js"></script>

@@ -39,7 +39,7 @@ A Git push does not deploy this site unless deployment automation has been confi
 
 ## Evaluation and remaining launch work
 
-The existing static architecture fits this small business website. The original form contained nonfunctional Firebase credentials, used fragile named form properties, omitted optional-email validation, and navigated to a second HTML page after submission. These issues are corrected. Mobile navigation, error announcements, input limits, keyboard focus, reduced-motion support, a local preview server and submission regression checks are included.
+The existing static architecture fits this small business website. The original form contained nonfunctional Firebase credentials, used fragile named form properties, omitted optional-email validation, and navigated to a second HTML page after submission. These issues are corrected. Mobile navigation, error announcements, input limits, keyboard focus, a local preview server and submission regression checks are included.
 
 Business phone numbers, email, images, reviews, registration details, claims and canonical metadata remain placeholders for owner review. Missing privacy and terms links have been removed until actual policies are supplied. Review the consent wording and provide policies before collecting real customer information.
 
@@ -49,7 +49,7 @@ Existing Firestore rules are unchanged. They restrict reads but accept public wr
 
 ## Visual redesign
 
-The site uses an ivory, deep navy, sage and citrus palette with an arched hero photograph, bespoke SVG line icons, an eight-service catalogue, dark feature panel, four-step process, regional contour decorations, and a responsive enquiry form. Service-card links preselect the matching enquiry service. Entrance animations and interaction transitions respect reduced-motion preferences.
+The site uses an ivory, deep navy, sage and citrus palette with an arched hero photograph, bespoke SVG line icons, an eight-service catalogue, dark feature panel, four-step process, regional contour decorations, and a responsive enquiry form. Service-card links preselect the matching enquiry service. Entrance animations and interaction transitions run by default.
 
 Placeholder review cards have been removed pending verified customer reviews. Existing business contact and registration placeholders remain.
 
@@ -67,6 +67,18 @@ Browser checks covered widths of 320, 390, 768 and 1440 pixels with no horizonta
 
 `public/js/motion.js` coordinates native Web Animations API transitions, staggered scroll entrances, reversible menu and FAQ height animation, button ripples, pointer-driven service cards, gentle hero image movement and a scroll progress indicator. CSS provides drifting accents, flowing lines, rotating ribbon details, softly floating hero cards, shifting headline colour and form feedback. There is no animation CDN, framework dependency or build step.
 
-Motion defaults to the device's reduced-motion preference. The footer's Animations button provides an explicit opt-in even when the device requests reduced motion, and can pause animations at any time. The choice is saved locally. Disabling motion cancels active effects and completes disclosures immediately; the content remains available when motion or animation APIs are unavailable. Touch devices retain native scrolling and do not receive mouse pointer effects.
+Motion is always enabled by default. There are no motion controls or saved pause preferences. Touch devices retain native scrolling and do not receive mouse pointer effects. Content remains readable when animation APIs are unavailable.
 
-The motion preview was checked on desktop and mobile, including rapid menu/FAQ open-close reversals, keyboard Escape, pause/resume, persisted preference after reload, and initial reduced-motion behavior. The new module is included in `npm run check`; existing enquiry regression tests remain applicable.
+The motion preview was checked on desktop and mobile, including rapid menu/FAQ open-close reversals and keyboard Escape. The new module is included in `npm run check`; existing enquiry regression tests remain applicable.
+
+## Navigation and contact actions
+
+Header links scroll explicitly to their sections, update the URL, highlight the current section and move keyboard focus to the destination. Quote calls to action scroll directly to the form and focus its name field. The logo scrolls home without reloading the page. Service cards and footer service links preselect the matching enquiry service, with a visible selection message.
+
+All buttons and links have hover/press feedback and click ripples by default. Motion controls and preference storage have been removed.
+
+The existing dummy phone and WhatsApp numbers open an animated contact panel with a working quote action. Email links marked `data-contact-placeholder` use that panel too. When real details are available, replace the telephone/WhatsApp URLs and remove `data-contact-placeholder` from confirmed email links to restore direct contact actions. The business details themselves remain placeholders, as requested.
+
+The contact panel supports keyboard Escape, close/dismiss buttons, backdrop dismissal, focus restoration and the quote-form route. Browser checks covered all five main navigation actions, all eight service-card choices, footer service selection, the three contact channels and the mobile menu.
+
+Coverage chips now start an enquiry with the chosen suburb filled in. The full service-card surface activates its enquiry link; the link remains separately reachable by keyboard. Submit validation was also checked in the browser and focused the first invalid field without attempting a database write. Layout checks covered 320, 375, 390, 768, 1024 and 1440 pixel widths with no horizontal overflow.

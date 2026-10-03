@@ -333,10 +333,7 @@ p { margin-bottom: 16px; }
   .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #9baa91; }
   .areas-list li:hover { transform: translateY(-3px); background: var(--accent); color: var(--navy); }
 }
-@media (prefers-reduced-motion: reduce) {
-  html:has(body:not(.motion-enabled)) { scroll-behavior: auto; }
-  body:not(.motion-enabled) *, body:not(.motion-enabled) *::before, body:not(.motion-enabled) *::after { animation: none !important; transition: none !important; }
-}
+
 
 /* Site-wide motion uses a shared easing curve and transform/opacity wherever possible. */
 .hero-line { display: block; transform-origin: left bottom; }
@@ -390,9 +387,6 @@ body.js-enabled .faq-item.is-expanded summary::after { content: '−'; }
 .quote-form { transition: box-shadow 450ms ease, border-color 450ms ease; }
 .quote-form:focus-within { border-color: #a7bba0; box-shadow: 0 20px 55px #152d3520; }
 .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.motion-toggle { background: transparent; border: 1px solid #ffffff30; border-radius: 100px; padding: 8px 14px; font-size: .65rem; color: #dce6da; cursor: pointer; transition: background-color 200ms ease; }
-.motion-toggle:hover { background: #ffffff0c; }
-.motion-toggle:disabled { opacity: .6; cursor: default; }
 @media (hover: hover) and (pointer: fine) {
   .motion-enabled .service-card:hover { transform: perspective(900px) translateY(-7px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
   .service-card:hover::before { opacity: 1; }
@@ -405,17 +399,7 @@ body.js-enabled .faq-item.is-expanded summary::after { content: '−'; }
   .flow-lines { bottom: 80px; left: -5%; max-width: none; width: 110%; }
   .footer-bottom .container { align-items: flex-start; flex-direction: column; }
 }
-body.motion-paused { scroll-behavior: auto; }
-html:has(body.motion-paused) { scroll-behavior: auto; }
-body.motion-paused *, body.motion-paused *::before, body.motion-paused *::after { animation: none !important; transition: none !important; }
-body.motion-paused .service-card:hover, body.motion-paused .service-icon, body.motion-paused .why-icon .icon, body.motion-paused .step-num { transform: none; }
-body.motion-paused .hero-photo img, body.motion-paused .hero-photo:hover img { transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  html:has(body:not(.motion-enabled)) { scroll-behavior: auto; }
-  body:not(.motion-enabled) *, body:not(.motion-enabled) *::before, body:not(.motion-enabled) *::after { animation: none !important; transition: none !important; }
-  body:not(.motion-enabled) .hero-photo img, body:not(.motion-enabled) .hero-photo:hover img { transform: none; }
-  body:not(.motion-enabled) .service-card:hover, body:not(.motion-enabled) .service-icon, body:not(.motion-enabled) .why-icon .icon, body:not(.motion-enabled) .step-num { transform: none !important; }
-}
+
 @supports (background-clip: text) {
   .motion-enabled .hero h1 .hero-line:not(.hero-line-primary), .motion-enabled .final-cta h2 span {
     background: linear-gradient(110deg, #52745e 15%, #889b52 45%, #42665a 75%);
@@ -430,3 +414,58 @@ body.motion-paused .hero-photo img, body.motion-paused .hero-photo:hover img { t
 .motion-enabled #form-status:not(:empty) { animation: status-arrive 450ms var(--ease) both; }
 @keyframes status-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .motion-enabled .quote-form[aria-busy='true'] .btn-text::after { content: ''; display: inline-block; width: 10px; height: 10px; margin-left: 10px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: star-turn 800ms linear infinite; }
+
+/* Every action has a visible hover, keyboard and press response. */
+.main-nav ul { gap: 6px; }
+.main-nav a { display: inline-flex; align-items: center; padding: 11px 14px; border-radius: 100px; isolation: isolate; overflow: hidden; transition: color 250ms ease, background-color 250ms ease, transform 350ms var(--ease), box-shadow 250ms ease; }
+.main-nav .nav-cta { padding: 11px 20px; }
+.main-nav a:not(.nav-cta)::after { left: 14px; bottom: 6px; width: calc(100% - 28px); }
+.main-nav a.is-active { background: #e7ecd9; color: #294b35; }
+.main-nav a.is-active::after { transform: scaleX(1); }
+.header-call, .menu-toggle, .mobile-cta, .dialog-close, .dialog-dismiss, .hero-floating-card a, .service-link { position: relative; overflow: hidden; isolation: isolate; transition: transform 300ms var(--ease), color 250ms ease, background-color 250ms ease, box-shadow 250ms ease; }
+.site-footer a, .contact-list a, .emergency-bar a { display: inline-block; position: relative; isolation: isolate; overflow: hidden; transition: transform 300ms var(--ease), color 250ms ease; }
+.service-link { border-radius: 0 0 5px 5px; }
+.btn:focus-visible, .main-nav a:focus-visible { box-shadow: 0 0 0 5px #a4ba5c25; }
+button:active, .btn:active, .header-call:active, .main-nav a:active, .mobile-cta:active, .service-link:active { transform: scale(.95); }
+@media (hover: hover) {
+  .main-nav a:hover { background: #e7ecd9; transform: translateY(-2px); }
+  .header-call:hover, .mobile-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 18px #152d3525; }
+  .menu-toggle:hover { background: var(--accent); transform: translateY(-2px); }
+  .hero-floating-card a:hover { transform: translate(2px, -2px); color: #719243; }
+  .site-footer a:hover, .contact-list a:hover { transform: translateX(3px); }
+  .service-link:hover { color: #687f37; }
+  .service-card:first-child .service-link:hover { color: white; }
+}
+/* Native dialog gives contact placeholders a useful, keyboard-accessible next step. */
+.contact-dialog { width: min(480px, calc(100% - 40px)); margin: auto; padding: 42px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 28px 90px #152d3540; max-height: calc(100dvh - 48px); overflow-y: auto; }
+.contact-dialog::backdrop { background: #152d357d; backdrop-filter: blur(7px); }
+.motion-enabled .contact-dialog[open]::backdrop { animation: status-arrive 250ms ease; }
+.dialog-close { position: absolute; right: 16px; top: 16px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; background: white; color: var(--navy); font-size: 1.5rem; cursor: pointer; }
+.dialog-icon { display: grid; place-items: center; width: 54px; height: 54px; background: var(--accent); color: var(--navy); border-radius: 18px; margin-bottom: 25px; }
+.contact-dialog .eyebrow { margin-bottom: 14px; }
+.contact-dialog h2 { font-size: 2.6rem; margin-bottom: 22px; }
+.contact-dialog > p:not(.eyebrow) { font-size: .9rem; line-height: 1.8; color: var(--text-muted); }
+.contact-dialog .btn { width: 100%; margin-top: 12px; }
+.dialog-dismiss { display: block; padding: 12px; margin: 10px auto 0; border: none; background: none; font-size: .78rem; cursor: pointer; color: var(--blue); }
+@media (max-width: 1100px) { .main-nav a { padding-inline: 10px; } .main-nav .nav-cta { padding-inline: 14px; } .header-inner { gap: 14px; } }
+@media (max-width: 900px) { .main-nav ul { gap: 6px; } }
+@media (max-width: 640px) {
+  .header-inner { gap: 7px; }
+  .contact-dialog { padding: 32px 24px; }
+  .contact-dialog h2 { font-size: 2.3rem; }
+}
+html { scrollbar-gutter: stable; }
+html:has(.contact-dialog[open]) { overflow: hidden; }
+.logo { position: relative; isolation: isolate; overflow: hidden; border-radius: 12px; }
+@media (max-width: 640px) { .header-call { display: none; } }
+@media (max-width: 370px) {
+  .brand-name { font-size: 1.05rem; }
+  .brand-name small { font-size: .35rem; }
+  .menu-toggle { padding: 9px 10px; font-size: .72rem; }
+}
+/* Coverage chips are real actions: pick an area to start an enquiry. */
+.areas-list li { padding: 0; overflow: hidden; }
+.areas-list button { display: block; position: relative; isolation: isolate; overflow: hidden; padding: 12px 22px; color: inherit; background: none; border: none; border-radius: inherit; cursor: pointer; font: inherit; width: 100%; }
+.areas-list button:focus-visible { outline-offset: -4px; }
+.service-card { cursor: pointer; }
+@media (max-width: 640px) { .areas-list button { padding: 10px 16px; } }

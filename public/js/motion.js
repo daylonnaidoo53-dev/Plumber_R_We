@@ -1,30 +1,19 @@
 const EASE = 'cubic-bezier(.22, 1, .36, 1)';
 
 export function initMotion() {
-  const body = document.body;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const desktop = window.matchMedia('(min-width: 901px)');
-  const control = document.getElementById('motion-toggle');
   const header = document.querySelector('.site-header');
   const progress = document.querySelector('.scroll-progress');
   const hero = document.querySelector('.hero');
   const photo = document.querySelector('.hero-photo img');
-  const activeAnimations = new Set();
   const settleDisclosures = new Set();
-  let preference = 'auto';
   let frame = 0;
-  try {
-    const saved = localStorage.getItem('plumber-motion');
-    if (saved === 'on' || saved === 'off') preference = saved;
-  } catch { /* Storage is optional. */ }
-  const enabled = () => preference !== 'off' && (!reduced.matches || preference === 'on');
+  const enabled = () => true;
 
   function animate(element, keyframes, options = {}) {
     if (!enabled() || !element?.animate) return;
     const animation = element.animate(keyframes, { duration: 800, easing: EASE, ...options });
-    activeAnimations.add(animation);
-    animation.finished.then(() => activeAnimations.delete(animation), () => activeAnimations.delete(animation));
     return animation;
   }
 
@@ -47,7 +36,7 @@ export function initMotion() {
       element.style.height = '';
       prepare(open);
       const to = element.getBoundingClientRect().height;
-      if (!enabled() || !element.animate || from === to) { finish(); return; }
+      if (!enabled() || !element.animate || from === to) { finish(); return Promise.resolve(); }
       // Keep the content mounted during the closing animation.
       prepare(true);
       element.style.overflow = 'hidden';
@@ -56,7 +45,7 @@ export function initMotion() {
         duration: open ? 460 : 340, fill: 'both'
       });
       animation = current;
-      current.finished.then(() => {
+      return current.finished.then(() => {
         if (animation === current) finish();
       }, () => {});
     };
@@ -72,15 +61,15 @@ export function initMotion() {
     menuOpen = open;
     toggle.setAttribute('aria-expanded', String(open));
     nav.inert = !open && !desktop.matches;
-    setMenuHeight(open);
+    const settled = setMenuHeight(open);
     if (open) nav.querySelectorAll('li').forEach((item, index) => {
       animate(item, [{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], {
         duration: 380, delay: index * 35, fill: 'backwards'
       });
     });
+    return settled;
   }
   toggle.addEventListener('click', () => setMenu(!menuOpen));
-  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && menuOpen) { setMenu(false); toggle.focus(); }
   });
@@ -158,7 +147,7 @@ export function initMotion() {
       card.style.removeProperty('--tilt-y');
     });
   });
-  document.querySelectorAll('.btn').forEach(button => {
+  document.querySelectorAll('a:not(.skip-link), button').forEach(button => {
     button.addEventListener('click', event => {
       if (!enabled() || button.disabled) return;
       const ripple = document.createElement('span');
@@ -171,7 +160,8 @@ export function initMotion() {
       ripple.style.top = `${(event.detail ? event.clientY - bounds.top : bounds.height / 2) - size / 2}px`;
       button.append(ripple);
       const animation = animate(ripple, [{ transform: 'scale(0)', opacity: .3 }, { transform: 'scale(1)', opacity: 0 }], { duration: 650 });
-      animation.finished.then(() => ripple.remove(), () => ripple.remove());
+      if (animation) animation.finished.then(() => ripple.remove(), () => ripple.remove());
+      else ripple.remove();
     });
   });
 
@@ -194,23 +184,6 @@ export function initMotion() {
   window.addEventListener('resize', queueScroll, { passive: true });
   finePointer.addEventListener('change', () => { photo.style.removeProperty('--photo-y'); queueScroll(); });
 
-  function updatePreference() {
-    body.classList.toggle('motion-enabled', enabled());
-    body.classList.toggle('motion-paused', !enabled());
-    control.textContent = enabled() ? 'Pause animations' : reduced.matches ? 'Enable animations' : 'Resume animations';
-    control.setAttribute('aria-pressed', String(enabled()));
-    if (!enabled()) {
-      activeAnimations.forEach(animation => animation.cancel());
-      settleDisclosures.forEach(finish => finish());
-      photo.style.removeProperty('--photo-y');
-    }
-    queueScroll();
-  }
-  control.addEventListener('click', () => {
-    preference = enabled() ? 'off' : 'on';
-    try { localStorage.setItem('plumber-motion', preference); } catch { /* Storage is optional. */ }
-    updatePreference();
-  });
-  reduced.addEventListener('change', updatePreference);
-  updatePreference();
+  queueScroll();
+  return { animate, enabled, closeMenu: () => setMenu(false) };
 }
