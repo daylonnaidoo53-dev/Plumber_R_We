@@ -1,93 +1,63 @@
-// Firebase configuration — REPLACE with your values from Firebase Console
-// Get them from: Firebase Console → Project Settings → Your apps → Web app
-const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "plumber-r-we-87724.firebaseapp.com",
-  projectId: "plumber-r-we-87724",
-  storageBucket: "plumber-r-we-87724.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
-};
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 const form = document.getElementById('quote-form');
-const submitBtn = document.getElementById('submit-btn');
-const btnText = submitBtn?.querySelector('.btn-text');
-const loadedAt = Date.now();
-
-function showError(fieldName, message) {
-  const input = form.querySelector(`[name="${fieldName}"]`);
-  const errEl = form.querySelector(`.error[data-for="${fieldName}"]`);
-  if (input) input.classList.add('invalid');
-  if (errEl) errEl.textContent = message;
+const button = document.getElementById('submit-btn');
+const status = document.getElementById('form-status');
+let database;
+let sending = false;
+async function connect() {
+  const response = await fetch('/__/firebase/init.json');
+  if (!response.ok) throw new Error('Firebase configuration unavailable');
+  const config = await response.json();
+  if (!config.apiKey || !config.projectId || !config.appId) throw new Error('Incomplete Firebase configuration');
+  const [app, firestore] = await Promise.all([
+    import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+    import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js')
+  ]);
+  database = { db: firestore.getFirestore(app.initializeApp(config)), firestore };
+  return database;
 }
-
-function clearErrors() {
-  form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-  form.querySelectorAll('.error').forEach(el => el.textContent = '');
-}
-
-function validate(data) {
-  clearErrors();
-  let valid = true;
-
-  if (!data.name.trim()) { showError('name', 'Please tell us your name.'); valid = false; }
-  if (!data.phone.trim()) { showError('phone', 'We need a number to reach you.'); valid = false; }
-  else if (!/^[\d\s+()-]{7,}$/.test(data.phone)) { showError('phone', 'Please enter a valid phone number.'); valid = false; }
-  if (!data.suburb.trim()) { showError('suburb', 'Which suburb are you in?'); valid = false; }
-  if (!data.service) { showError('service', 'Please pick a service.'); valid = false; }
-  if (!data.urgency) { showError('urgency', 'How urgent is the job?'); valid = false; }
-  if (!form.consent.checked) { showError('consent', 'Please tick the consent box.'); valid = false; }
-
-  return valid;
-}
-
-if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Honeypot check
-    const honeypot = form.querySelector('[name="website"]').value;
-    if (honeypot) return;
-
-    // Minimum time on form (blocks bots)
-    if (Date.now() - loadedAt < 3000) {
-      alert('Please take a moment to fill in the form.');
-      return;
-    }
-
-    const data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      email: form.email.value.trim(),
-      suburb: form.suburb.value.trim(),
-      service: form.service.value,
-      urgency: form.urgency.value,
-      message: form.message.value.trim(),
-      source: 'website'
-    };
-
-    if (!validate(data)) return;
-
-    submitBtn.disabled = true;
-    if (btnText) btnText.textContent = 'Sending…';
-
-    try {
-      await addDoc(collection(db, 'leads'), {
-        ...data,
-        createdAt: serverTimestamp()
-      });
-      window.location.href = '/thank-you/';
-    } catch (err) {
-      console.error('Submission error:', err);
-      alert('Sorry — something went wrong. Please call us instead on 000 000 0000.');
-      submitBtn.disabled = false;
-      if (btnText) btnText.textContent = 'Send my request';
-    }
-  });
-}
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (sending || form.elements.namedItem('website').value) return;
+  status.textContent = '';
+  form.querySelectorAll('.error').forEach(element => { element.textContent = ''; });
+  let firstInvalid;
+  for (const field of form.elements) {
+    if (!field.willValidate) continue;
+    if (typeof field.value === 'string' && field.type !== 'checkbox') field.value = field.value.trim();
+    const invalid = !field.checkValidity();
+    field.setAttribute('aria-invalid', String(invalid));
+    field.classList.toggle('invalid', invalid);
+    const error = form.querySelector(`.error[data-for="${field.name}"]`);
+    if (error) error.textContent = invalid ? field.validationMessage : '';
+    if (invalid && !firstInvalid) firstInvalid = field;
+  }
+  if (firstInvalid) {
+    status.textContent = 'Please check the highlighted fields.';
+    firstInvalid.focus();
+    return;
+  }
+  const values = new FormData(form);
+  const data = Object.fromEntries(['name', 'phone', 'email', 'suburb', 'service', 'urgency', 'message'].map(key => [key, values.get(key)]));
+  sending = true;
+  button.disabled = true;
+  button.querySelector('.btn-text').textContent = 'Sending…';
+  form.setAttribute('aria-busy', 'true');
+  try {
+    const { db, firestore } = database || await connect();
+    await firestore.addDoc(firestore.collection(db, 'leads'), {
+      ...data, consent: true, source: 'website', createdAt: firestore.serverTimestamp()
+    });
+    form.reset();
+    status.textContent = 'Thank you — your request has been received. Our team will contact you during business hours.';
+    status.focus();
+  } catch (error) {
+    console.error('Quote submission failed:', error);
+    status.textContent = 'Your request could not be sent. Your details are still here. Please try again or use the contact details alongside the form.';
+    status.focus();
+  } finally {
+    sending = false;
+    button.disabled = false;
+    button.querySelector('.btn-text').textContent = 'Send my request';
+    form.removeAttribute('aria-busy');
+  }
+});

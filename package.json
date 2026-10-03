@@ -1,0 +1,13 @@
+{
+  "name": "plumber-r-we",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Plumber R We single-page website",
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "check": "node --check public/js/main.js && node --check public/js/motion.js && node --check public/js/quote-form.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=22" }
+}

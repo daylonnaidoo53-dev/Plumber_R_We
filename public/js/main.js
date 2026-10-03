@@ -1,10 +1,16 @@
-// Auto-update footer year
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+import { initMotion } from './motion.js';
 
-// Smooth-close mobile nav on link click (future-proof)
-document.querySelectorAll('.main-nav a').forEach(link => {
+document.body.classList.add('js-enabled');
+document.getElementById('year').textContent = new Date().getFullYear();
+initMotion();
+
+// Service-card actions carry the chosen service into the enquiry form.
+document.querySelectorAll('.service-link').forEach(link => {
   link.addEventListener('click', () => {
-    // placeholder for mobile menu close
+    const title = link.closest('.service-card').querySelector('h3').textContent;
+    const service = document.getElementById('service');
+    const option = [...service.options].find(item => item.textContent === title
+      || (title === 'Leak Detection & Repair' && item.textContent === 'Leak Detection'));
+    if (option) service.value = option.value;
   });
 });

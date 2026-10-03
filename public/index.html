@@ -23,7 +23,7 @@
   "@context": "https://schema.org",
   "@type": "Plumber",
   "name": "Plumber R We",
-  "image": "https://plumber-r-we-87724.web.app/images/og-image.jpg",
+  "image": "https://plumber-r-we-87724.web.app/images/bathroom-concept.png",
   "url": "https://plumber-r-we-87724.web.app/",
   "telephone": "+27000000000",
   "priceRange": "R",
@@ -65,23 +65,41 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Zm0 6v5m0 3v.1"/></symbol>
+  <symbol id="icon-drain" viewBox="0 0 24 24"><path d="M4 3v10a7 7 0 0 0 14 0V3M4 7h14M4 11h14m-7-8v12m-4-2h8"/></symbol>
+  <symbol id="icon-heat" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="4"/><path d="m12 7-3 5h6l-3 5"/></symbol>
+  <symbol id="icon-drop" viewBox="0 0 24 24"><path d="M12 2C8 7 5 10 5 14a7 7 0 0 0 14 0c0-4-3-7-7-12Zm-3 12a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="icon-bath" viewBox="0 0 24 24"><path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3Zm2 0V5a3 3 0 0 1 6 0M8 5h6M6 20v2m12-2v2"/></symbol>
+  <symbol id="icon-tap" viewBox="0 0 24 24"><path d="M3 11h14a4 4 0 0 1 4 4v2h-5v-2H3m5-4V6m-4 0h8M3 9v8m15 3v1"/></symbol>
+  <symbol id="icon-building" viewBox="0 0 24 24"><path d="M4 21V3h12v18M16 9h4v12M2 21h20M8 7h4M8 11h4M8 15h4m-3 6v-3h2v3"/></symbol>
+  <symbol id="icon-tool" viewBox="0 0 24 24"><path d="M14 6a6 6 0 0 0-7 7l-5 5 4 4 5-5a6 6 0 0 0 7-7l-4 4-4-4 4-4Z"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6l8-4Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+</defs></svg>
 
 <!-- Emergency bar -->
 <div class="emergency-bar">
   <span class="emergency-dot"></span>
-  Plumbing emergency? We answer 24/7 &mdash; <a href="tel:+27000000000">Call now</a>
+  <span>Here when it matters. <strong>24/7 emergency plumbing.</strong></span> <a href="tel:+27000000000">Let’s get it sorted <span aria-hidden="true">↗</span></a>
 </div>
 
 <!-- Header -->
 <header class="site-header">
+  <div class="scroll-progress" aria-hidden="true"></div>
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Plumber R We home">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 2C8 6 5 9 5 13a7 7 0 0 0 14 0c0-4-3-7-7-11z" fill="currentColor"/>
       </svg>
-      <span>Plumber R We</span>
+      <span class="brand-name">Plumber <span>R We.</span><small>PAARL &amp; CAPE WINELANDS</small></span>
     </a>
-    <nav class="main-nav" aria-label="Main navigation">
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false">Menu</button>
+    <nav id="main-nav" class="main-nav" aria-label="Main navigation">
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#why">Why Us</a></li>
@@ -99,80 +117,81 @@
   </div>
 </header>
 
-<main>
+<main id="main">
 
 <!-- Hero -->
 <section class="hero">
+  <svg class="flow-lines" viewBox="0 0 700 300" fill="none" aria-hidden="true"><path d="M-20 280C160 280 80 20 320 90S510 320 730 150"/><path d="M-20 255C160 255 80-5 320 65S510 295 730 125"/><path d="M-20 230C160 230 80-30 320 40S510 270 730 100"/></svg>
   <div class="container hero-inner">
     <div class="hero-content">
-      <p class="eyebrow">Paarl &amp; Cape Winelands</p>
-      <h1>Plumbing done right, the first time.</h1>
-      <p class="hero-sub">From blocked drains to burst geysers, Plumber R We delivers fast, honest, and affordable plumbing across Paarl and the Boland. Free quotes. No hidden fees.</p>
+      <p class="eyebrow hero-eyebrow"><span class="location-dot"></span> Your local Winelands plumbers</p>
+      <h1><span class="hero-line hero-line-primary">Good plumbing.</span><span class="hero-line">Great peace</span><span class="hero-line">of mind.</span></h1>
+      <p class="hero-sub">A dripping tap. A burst geyser. A bathroom you’ve been dreaming of. Whatever you need, we’ll get the water flowing — and life back to normal.</p>
       <div class="hero-ctas">
-        <a href="#quote" class="btn btn-primary">Get a Free Quote</a>
-        <a href="tel:+27000000000" class="btn btn-outline">Call 000 000 0000</a>
+        <a href="#quote" class="btn btn-primary">Get a free quote <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+        <a href="#services" class="btn btn-outline">Explore our services</a>
       </div>
       <ul class="trust-badges">
-        <li>✓ Free Quotes</li>
-        <li>✓ 24/7 Emergencies</li>
-        <li>✓ Local &amp; Trusted</li>
+        <li><span aria-hidden="true">✓</span> No-obligation quotes</li>
+        <li><span aria-hidden="true">✓</span> Local to Paarl</li>
       </ul>
     </div>
     <div class="hero-image">
-      <!-- REPLACE: hero image of plumber at work, 1200x900 -->
-      <div class="image-placeholder">Hero image — plumber at work</div>
+      <div class="hero-photo"><img src="/images/bathroom-concept.png" width="1122" height="1402" alt="Bathroom design inspiration with a brass tap, stone surfaces and a navy vanity" fetchpriority="high"><span class="photo-caption">A little inspiration for your next renovation.</span></div>
+      <div class="hero-stamp" aria-hidden="true"><svg class="icon"><use href="#icon-drop"/></svg><span>GOOD FLOW.<br>GOOD LIVING.</span></div>
+      <div class="hero-floating-card"><span class="floating-icon"><svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg></span><div><strong>Leaks don’t keep office hours.</strong><span>Neither do our emergency callouts.</span></div><a href="tel:+27000000000" aria-label="Call for emergency plumbing">↗</a></div>
     </div>
   </div>
 </section>
 
+<div class="service-ribbon" aria-label="Service highlights"><div class="container"><span>Small fixes. Big improvements.</span><span aria-hidden="true">✳</span><span>Homes &amp; businesses</span><span aria-hidden="true">✳</span><span>Across the Cape Winelands</span><span aria-hidden="true">✳</span><span>Ready when you need us</span></div></div>
+
 <!-- Services -->
 <section id="services" class="section services-section">
   <div class="container">
-    <p class="eyebrow center">What we do</p>
-    <h2 class="center">Our Plumbing Services</h2>
-    <p class="section-intro center">Whatever's gone wrong, we've seen it before. Here's how we can help.</p>
+    <div class="section-heading"><div><p class="eyebrow">01 / What we do</p><h2>Everyday fixes.<br><span>Expert hands.</span></h2></div><p class="section-intro">From the unexpected to the long-awaited.<br>One local team for all your plumbing needs.</p></div>
 
     <div class="services-grid">
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🚨</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-alert"/></svg></span><span class="service-number">01</span></div>
         <h3>Emergency Plumbing</h3>
         <p>Burst pipes, flooding, gas leaks — we respond fast, day or night.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🕳️</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-drain"/></svg></span><span class="service-number">02</span></div>
         <h3>Blocked Drains</h3>
         <p>High-pressure jetting and drain camera inspections to clear any blockage.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🔥</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-heat"/></svg></span><span class="service-number">03</span></div>
         <h3>Geyser Repair &amp; Install</h3>
         <p>Repairs, replacements and new installations — all major brands.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">💧</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-drop"/></svg></span><span class="service-number">04</span></div>
         <h3>Leak Detection &amp; Repair</h3>
         <p>Non-invasive leak detection to find and fix hidden water loss.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🛁</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bath"/></svg></span><span class="service-number">05</span></div>
         <h3>Bathroom &amp; Kitchen</h3>
         <p>Full renovations, new fittings, and expert installation.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🚽</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-tap"/></svg></span><span class="service-number">06</span></div>
         <h3>Toilets &amp; Taps</h3>
         <p>Dripping taps, running toilets, replacements — sorted in one visit.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🏢</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-building"/></svg></span><span class="service-number">07</span></div>
         <h3>Commercial Plumbing</h3>
         <p>Maintenance contracts and callouts for offices, shops and estates.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
       <article class="service-card">
-        <div class="service-icon" aria-hidden="true">🔧</div>
+        <div class="service-card-top"><span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#icon-tool"/></svg></span><span class="service-number">08</span></div>
         <h3>General Maintenance</h3>
         <p>Preventative checks and plumbing upgrades for older homes.</p>
-      </article>
+      <a class="service-link" href="#quote">Let's get it sorted <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></article>
     </div>
   </div>
 </section>
@@ -180,26 +199,25 @@
 <!-- Why us -->
 <section id="why" class="section why-section">
   <div class="container">
-    <p class="eyebrow center">Why choose us</p>
-    <h2 class="center">The Plumber R We difference</h2>
+    <div class="section-heading"><div><p class="eyebrow">02 / The way we work</p><h2>Proper work.<br><span>Good people.</span></h2></div><p class="section-intro">We believe a good plumber brings more than tools. Clear communication, care for your home, and a job done properly.</p></div>
     <div class="why-grid">
       <div class="why-item">
-        <div class="why-icon" aria-hidden="true">⏱️</div>
+        <div class="why-icon"><svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg></div>
         <h3>Fast Response</h3>
         <p>We know plumbing problems can't wait. We aim to be at your door within hours, not days.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon" aria-hidden="true">💰</div>
+        <div class="why-icon"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></div>
         <h3>Honest Pricing</h3>
         <p>Free, no-obligation quotes upfront. What we quote is what you pay — no surprises.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon" aria-hidden="true">🎓</div>
+        <div class="why-icon"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></div>
         <h3>Qualified Work</h3>
         <p>Every job is done properly, to standard, with the right parts and proper workmanship.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon" aria-hidden="true">📍</div>
+        <div class="why-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pin"/></svg></div>
         <h3>Local to Paarl</h3>
         <p>We live and work in the Winelands. When you call, you get a neighbour, not a call centre.</p>
       </div>
@@ -210,8 +228,8 @@
 <!-- How it works -->
 <section class="section process-section">
   <div class="container">
-    <p class="eyebrow center">How it works</p>
-    <h2 class="center">Four simple steps</h2>
+    <p class="eyebrow center">03 / From problem to sorted</p>
+    <h2 class="center">Less hassle. <span>More happy.</span></h2>
     <ol class="process-list">
       <li><span class="step-num">1</span><h3>Get in touch</h3><p>Call, WhatsApp, or fill in the quote form.</p></li>
       <li><span class="step-num">2</span><h3>Free quote</h3><p>We assess the job and give you a clear, upfront price.</p></li>
@@ -224,8 +242,8 @@
 <!-- Areas -->
 <section id="areas" class="section areas-section">
   <div class="container">
-    <p class="eyebrow center">Where we work</p>
-    <h2 class="center">Areas we serve</h2>
+    <p class="eyebrow center">04 / Close to home</p>
+    <h2 class="center">Winelands roots.<br><span>Neighbourhood service.</span></h2>
     <p class="section-intro center">Based in Paarl, serving the whole Cape Winelands region.</p>
     <ul class="areas-list">
       <li>Paarl</li>
@@ -240,35 +258,14 @@
   </div>
 </section>
 
-<!-- Testimonials -->
-<section class="section testimonials-section">
-  <div class="container">
-    <p class="eyebrow center">What clients say</p>
-    <h2 class="center">Trusted by locals</h2>
-    <div class="testimonials-grid">
-      <!-- REPLACE: insert real Google review -->
-      <blockquote class="testimonial">
-        <p>"[PLACEHOLDER — INSERT REAL GOOGLE REVIEW]"</p>
-        <footer>— [Client name], Paarl</footer>
-      </blockquote>
-      <blockquote class="testimonial">
-        <p>"[PLACEHOLDER — INSERT REAL GOOGLE REVIEW]"</p>
-        <footer>— [Client name], Wellington</footer>
-      </blockquote>
-      <blockquote class="testimonial">
-        <p>"[PLACEHOLDER — INSERT REAL GOOGLE REVIEW]"</p>
-        <footer>— [Client name], Franschhoek</footer>
-      </blockquote>
-    </div>
-  </div>
-</section>
+<!-- Add verified customer reviews here when available. -->
 
 <!-- Quote form -->
 <section id="quote" class="section quote-section">
   <div class="container quote-inner">
     <div class="quote-copy">
-      <p class="eyebrow">Get started</p>
-      <h2>Request your free quote</h2>
+      <p class="eyebrow">05 / Let’s get it sorted</p>
+      <h2>Your next step?<br><span>We make it easy.</span></h2>
       <p>Fill in the form and we'll get back to you within business hours. For emergencies, please call us directly.</p>
       <ul class="contact-list">
         <li><strong>Phone:</strong> <a href="tel:+27000000000">000 000 0000</a></li>
@@ -279,28 +276,30 @@
     </div>
 
     <form id="quote-form" class="quote-form" novalidate>
+      <div class="form-heading"><span class="eyebrow">No obligation. No surprises.</span><h3>Tell us what you need.</h3><p>A few details and we’ll take it from here.</p></div>
       <div class="form-row">
         <label for="name">Your name *</label>
-        <input type="text" id="name" name="name" required autocomplete="name">
-        <span class="error" data-for="name"></span>
+        <input type="text" placeholder="Your full name" id="name" aria-describedby="name-error" name="name" maxlength="199" required autocomplete="name">
+        <span class="error" id="name-error" data-for="name"></span>
       </div>
       <div class="form-row">
         <label for="phone">Phone number *</label>
-        <input type="tel" id="phone" name="phone" required autocomplete="tel">
-        <span class="error" data-for="phone"></span>
+        <input type="tel" placeholder="e.g. 082 123 4567" id="phone" aria-describedby="phone-error" name="phone" maxlength="49" pattern="[+]?[0-9][0-9 \(\)\-]{6,48}" required autocomplete="tel">
+        <span class="error" id="phone-error" data-for="phone"></span>
       </div>
       <div class="form-row">
         <label for="email">Email (optional)</label>
-        <input type="email" id="email" name="email" autocomplete="email">
+        <input type="email" placeholder="you@example.com" id="email" aria-describedby="email-error" name="email" maxlength="254" autocomplete="email">
+        <span class="error" id="email-error" data-for="email"></span>
       </div>
       <div class="form-row">
         <label for="suburb">Suburb *</label>
-        <input type="text" id="suburb" name="suburb" required>
-        <span class="error" data-for="suburb"></span>
+        <input type="text" placeholder="Where can we help?" id="suburb" aria-describedby="suburb-error" name="suburb" maxlength="200" required>
+        <span class="error" id="suburb-error" data-for="suburb"></span>
       </div>
       <div class="form-row">
         <label for="service">Service needed *</label>
-        <select id="service" name="service" required>
+        <select id="service" aria-describedby="service-error" name="service" required>
           <option value="">Please choose…</option>
           <option>Emergency Plumbing</option>
           <option>Blocked Drains</option>
@@ -312,26 +311,26 @@
           <option>General Maintenance</option>
           <option>Other</option>
         </select>
-        <span class="error" data-for="service"></span>
+        <span class="error" id="service-error" data-for="service"></span>
       </div>
       <div class="form-row">
         <label for="urgency">How urgent is it? *</label>
-        <select id="urgency" name="urgency" required>
+        <select id="urgency" aria-describedby="urgency-error" name="urgency" required>
           <option value="">Please choose…</option>
           <option>Emergency — right now</option>
           <option>This week</option>
           <option>Flexible / just quoting</option>
         </select>
-        <span class="error" data-for="urgency"></span>
+        <span class="error" id="urgency-error" data-for="urgency"></span>
       </div>
       <div class="form-row">
         <label for="message">Tell us about the job</label>
-        <textarea id="message" name="message" rows="4"></textarea>
+        <textarea placeholder="A little more about your plumbing problem…" id="message" name="message" rows="4" maxlength="5000"></textarea>
       </div>
       <div class="form-row checkbox-row">
-        <input type="checkbox" id="consent" name="consent" required>
+        <input type="checkbox" id="consent" aria-describedby="consent-error" name="consent" required>
         <label for="consent">I agree to BC Computers / Plumber R We storing my details to respond to this enquiry. *</label>
-        <span class="error" data-for="consent"></span>
+        <span class="error" id="consent-error" data-for="consent"></span>
       </div>
 
       <!-- Honeypot -->
@@ -343,6 +342,8 @@
       <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
         <span class="btn-text">Send my request</span>
       </button>
+      <p id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+      <noscript><p>Please enable JavaScript to submit this form, or contact us directly.</p></noscript>
       <p class="form-note">We'll never share your details. POPIA compliant.</p>
     </form>
   </div>
@@ -351,8 +352,8 @@
 <!-- FAQ -->
 <section id="faq" class="section faq-section">
   <div class="container narrow">
-    <p class="eyebrow center">Common questions</p>
-    <h2 class="center">Frequently asked</h2>
+    <p class="eyebrow center">06 / Good to know</p>
+    <h2 class="center">A few things <span>you might ask.</span></h2>
 
     <details class="faq-item">
       <summary>Do you charge a callout fee?</summary>
@@ -392,8 +393,9 @@
 <!-- Final CTA -->
 <section class="final-cta">
   <div class="container center">
-    <h2>Ready to sort out that plumbing problem?</h2>
-    <p>Call us or request a free quote — we'll take it from here.</p>
+    <p class="eyebrow">Leave the plumbing to us.</p>
+    <h2>Let’s get your day<br><span>flowing again.</span></h2>
+    <p>One call. One local team. A lot less to worry about.</p>
     <div class="hero-ctas center">
       <a href="tel:+27000000000" class="btn btn-primary">Call 000 000 0000</a>
       <a href="#quote" class="btn btn-outline">Request a Quote</a>
@@ -439,7 +441,8 @@
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p>&copy; <span id="year"></span> Plumber R We. All rights reserved. · <a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a></p>
+      <p>&copy; <span id="year"></span> Plumber R We. All rights reserved.</p>
+      <button id="motion-toggle" class="motion-toggle" type="button" aria-label="Animations" aria-pressed="false">Pause animations</button>
     </div>
   </div>
 </footer>
